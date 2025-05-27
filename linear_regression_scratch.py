@@ -21,17 +21,19 @@ class sLinearRegression:
     def fit(self,X,y):
         self.n_samples, self.n_features=X.shape
         self._init_param()
+        self.gradient_descent(X,y)
+
+    def gradient_descent(self, X, y):
         for i in range(self.n_iters):
             y_pred=self.y_prediction(X)
-            dweights,dbias=self.gradient_descent(X,y,y_pred)
-            self.weights-= self.lr*dweights
-            self.bias-=self.lr*dbias
-
-    def gradient_descent(self, X, y, y_pred):
+            self.gradient_step(X,y,y_pred)
+    
+    def gradient_step(self,X,y,y_pred):
         diff=y_pred-y
         dweights=(1/self.n_samples)*np.dot(X.T, diff)
         dbias=(1/self.n_samples)*np.sum(diff)
-        return dweights, dbias
+        self.weights-= self.lr*dweights
+        self.bias-=self.lr*dbias
 
     def predict(self,X):
         return self.y_prediction(X)
