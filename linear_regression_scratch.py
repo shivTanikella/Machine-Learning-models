@@ -37,8 +37,8 @@ class sLinearRegression:
         lr.fit(X_train, y_train)
         predict_base = lr.predict(X_test)
         mse_base = mean_squared_error(y_test, predict_base)
-        diff=20
-        while (diff>10):
+        diff=0.002
+        while (diff>0.001):
             max_iter+=100
             lr.fit(X_train, y_train)
             predict=lr.predict(X_test)
