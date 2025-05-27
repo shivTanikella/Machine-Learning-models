@@ -26,14 +26,11 @@ class sLinearRegression:
     def gradient_descent(self, X, y):
         for i in range(self.n_iters):
             y_pred=self.y_prediction(X)
-            self.gradient_step(X,y,y_pred)
-    
-    def gradient_step(self,X,y,y_pred):
-        diff=y_pred-y
-        dweights=(1/self.n_samples)*np.dot(X.T, diff)
-        dbias=(1/self.n_samples)*np.sum(diff)
-        self.weights-= self.lr*dweights
-        self.bias-=self.lr*dbias
+            diff=y_pred-y
+            dweights=(1/self.n_samples)*np.dot(X.T, diff)
+            dbias=(1/self.n_samples)*np.sum(diff)
+            self.weights-= self.lr*dweights
+            self.bias-=self.lr*dbias
 
     def predict(self,X):
         return self.y_prediction(X)
