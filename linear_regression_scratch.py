@@ -7,7 +7,8 @@ from sklearn.linear_model import LinearRegression
 
 
 class sLinearRegression:
-    def __init__(self, learning_rate=0.01, bias=0, n_iters=100):
+    iterations_base=1000
+    def __init__(self, learning_rate=0.01, bias=0, n_iters=iterations_base):
         # h(x) = bias + weights_1*x_1 + ... + weight_n*x_n
         self.lr=learning_rate
         self.weights=None
@@ -32,14 +33,14 @@ class sLinearRegression:
             self.weights-= self.lr*dweights
             self.bias-=self.lr*dbias
 
-    def iter_threshold(self, X_train, X_test, y_train, y_test, max_iter=100):
+    def iter_threshold(self, X_train, X_test, y_train, y_test, max_iter=iterations_base):
         lr=sLinearRegression(n_iters=max_iter)
         lr.fit(X_train, y_train)
         predict_base = lr.predict(X_test)
         mse_base = mean_squared_error(y_test, predict_base)
         diff=0.002
         while (diff>0.001):
-            max_iter+=100
+            max_iter+=10
             lr.fit(X_train, y_train)
             predict=lr.predict(X_test)
             mse_new=mean_squared_error(y_test, predict)
